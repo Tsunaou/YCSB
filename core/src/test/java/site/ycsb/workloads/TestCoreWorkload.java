@@ -38,6 +38,8 @@ public class TestCoreWorkload {
     final int[] counts = new int[5];
     
     for (int i = 0; i < 100; ++i) {
+      System.out.println(generator.nextValue());
+      System.out.println(generator.nextString());
       switch (generator.nextString()) {
       case "READ":
         ++counts[0];

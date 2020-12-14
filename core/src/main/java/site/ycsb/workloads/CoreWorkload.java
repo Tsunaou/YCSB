@@ -519,6 +519,7 @@ public class CoreWorkload extends Workload {
       keynum = Utils.hash(keynum);
     }
     String value = Long.toString(keynum);
+    System.out.println("value(toString(keynums)) is " + value);
     int fill = zeropadding - value.length();
     String prekey = "user";
     for (int i = 0; i < fill; i++) {
@@ -635,6 +636,7 @@ public class CoreWorkload extends Workload {
   @Override
   public boolean doTransaction(DB db, Object threadstate) {
     String operation = operationchooser.nextString();
+    System.out.println("Operation is " + operation);
     if(operation == null) {
       return false;
     }
@@ -702,8 +704,10 @@ public class CoreWorkload extends Workload {
   public void doTransactionRead(DB db) {
     // choose a random key
     long keynum = nextKeynum();
+    System.out.println("keynum is " + keynum);
 
     String keyname = buildKeyName(keynum);
+    System.out.println("keyname is " + keyname);
 
     HashSet<String> fields = null;
 
@@ -798,8 +802,10 @@ public class CoreWorkload extends Workload {
   public void doTransactionUpdate(DB db) {
     // choose a random key
     long keynum = nextKeynum();
+    System.out.println("keynum is " + keynum);
 
     String keyname = buildKeyName(keynum);
+    System.out.println("keyname is " + keyname);
 
     HashMap<String, ByteIterator> values;
 
@@ -810,6 +816,8 @@ public class CoreWorkload extends Workload {
       // update a random field
       values = buildSingleValue(keyname);
     }
+    System.out.println("values is " + values);
+
 
     db.update(table, keyname, values);
   }

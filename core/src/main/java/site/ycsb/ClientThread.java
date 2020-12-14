@@ -115,6 +115,7 @@ public class ClientThread implements Runnable {
     }
     try {
       if (dotransactions) {
+        System.out.println("ClientThread dotranscations");
         long startTimeNanos = System.nanoTime();
 
         while (((opcount == 0) || (opsdone < opcount)) && !workload.isStopRequested()) {
