@@ -8,18 +8,17 @@ public class YCSBGenerator {
   final String read = "READ";
   final String write = "WRITE";
 
-  private int opCount; // default insertCount
-  private double readProportion;
-  private double writeProportion;
+  protected int opCount; // 操作总数
+  private double readProportion;  // 读操作比例
+  private double writeProportion; // 写操作比例
 
-  private int realReadCount;
+  protected int realReadCount;  // 实际读操作数
+  protected int realWriteCount; // 实际写操作数
 
-  private int realWriteCount;
-
-  private String requestDistrib;
+  private String requestDistrib;  // 生成器操作key的分布
   private String fieldLengthDistribution;
 
-  private int uniformMax;
+  private int uniformMax; // 均匀分布的最大值
 
   private boolean readAllFileds;
   private boolean writeAllFileds;
@@ -29,9 +28,9 @@ public class YCSBGenerator {
   private NumberGenerator keychooser;
   private AcknowledgedCounterGenerator transactioninsertkeysequence;
 
-  int[] keyCounter;
-  int[] readKeyCounter;
-  int[] writeKeyCounter;
+  protected int[] keyCounter;
+  protected int[] readKeyCounter;
+  protected int[] writeKeyCounter;
 
   public YCSBGenerator(int opCount, double readProportion, double writeProportion, String requestDistrib, int uniformMax) throws WorkloadException {
     this.opCount = opCount;
@@ -107,7 +106,7 @@ public class YCSBGenerator {
 
   }
 
-  public YCSBKeyValue nextOperation() {
+  public YCSBKeyValue nextOperation() throws OKCounterNotInitializedException {
     String operation = operationchooser.nextString();
 //        System.out.println("Operation is " + operation);
     if (operation == null) {
@@ -149,7 +148,7 @@ public class YCSBGenerator {
   }
 
 
-  public static void main(String[] args) throws WorkloadException {
+  public static void main(String[] args) throws WorkloadException, OKCounterNotInitializedException {
     int opCount = 10000;
     double readProportion = 0.5;
     double writeProportion = 0.5;
